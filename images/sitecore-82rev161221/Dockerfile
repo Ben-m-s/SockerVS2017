@@ -3,15 +3,7 @@ FROM microsoft/aspnet:4.7.1-windowsservercore-1709_KB4048955
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ADD *.zip .
-
-RUN Expand-Archive -Path 'C:\Sitecore*.zip' -DestinationPath 'C:'; `
-    Remove-Item 'C:\Sitecore*.zip' -Force; `
-    New-Item -Path 'C:\Sitecore' -Type Directory | Out-Null; `
-    Move-Item -Path 'C:\Sitecore *\Data' -Destination 'C:\Sitecore'; `
-    Move-Item -Path 'C:\Sitecore *\Website' -Destination 'C:\Sitecore'; `
-    Remove-Item -Path 'C:\Sitecore\Data\logs' -Recurse -Force; `
-    Remove-Item -Path 'C:\Sitecore *rev*' -Recurse -Force;
+RUN New-Item -Path 'C:\Sitecore' -Type Directory | Out-Null;
 
 ADD Sitecore /Sitecore
 

@@ -16,6 +16,7 @@ services:
     volumes:
       - .\data\serialization:C:\Sitecore\Data\serialization
       - .\data\logs:C:\Sitecore\Data\logs
+      - .\data\website:C:\Sitecore\Website
     links: 
       - db
 

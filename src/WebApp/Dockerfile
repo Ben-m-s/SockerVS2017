@@ -1,3 +1,2 @@
-FROM sitecore:8.2.161221
+FROM sitecore:linkedWebsite
 
-COPY . /Sitecore/Website

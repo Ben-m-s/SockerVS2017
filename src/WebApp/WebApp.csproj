@@ -114,10 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\ConnectionStrings.config" />
+    <Content Include="App_Config\Include\DataFolder.config" />
     <None Include="Dockerfile" />
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\Debug Container.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

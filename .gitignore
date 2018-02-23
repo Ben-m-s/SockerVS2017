@@ -221,3 +221,4 @@ _Pvt_Extensions
 *.zip
 license.xml
 data/logs/*.txt
+data/
