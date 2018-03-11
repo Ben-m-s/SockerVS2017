@@ -1,1 +1,0 @@
-This folder can be mapped to the default log dir C:/Sitecore/Data/logs, so you can watch log files.

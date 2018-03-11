@@ -221,3 +221,6 @@ _Pvt_Extensions
 *.zip
 license.xml
 data/logs/*.txt
+/storage/
+/images/sitecore-82rev161221/Sitecore*.zip
+license.xml

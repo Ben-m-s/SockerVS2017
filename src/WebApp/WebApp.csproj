@@ -118,6 +118,10 @@
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
+    <None Include="Debug.Dockerfile">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
+    <None Include="Properties\PublishProfiles\Debug Website.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

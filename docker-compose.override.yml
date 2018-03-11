@@ -4,7 +4,7 @@ services:
   db:
     image: microsoft/mssql-server-windows-express
     volumes:
-      - .\data\databases:C:\Data 
+      - .\storage\Databases:C:\Data
     environment:
       ACCEPT_EULA: Y
       sa_password: Docker+Sitecore!
@@ -14,8 +14,7 @@ services:
     ports:
       - "80"
     volumes:
-      - .\data\serialization:C:\Sitecore\Data\serialization
-      - .\data\logs:C:\Sitecore\Data\logs
+      - .\storage\Data:C:\Sitecore\Data
     links: 
       - db
 
