@@ -1,15 +1,16 @@
 # escape=`
-FROM microsoft/aspnet:4.7.1-windowsservercore-1709_KB4048955
+
+FROM sitecore-8-base
+
+ARG source
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN New-Item -Path 'C:\Sitecore' -Type Directory | Out-Null;
+COPY *.zip .
 
-ADD Sitecore /Sitecore
+RUN Expand-Archive -Path 'C:\Sitecore*rev*.zip' -DestinationPath 'C:'; `
+    Remove-Item 'C:\Sitecore*.zip' -Force; `
+    Move-Item -Path 'C:\Sitecore *rev*\Website' -Destination 'C:\Sitecore'; `
+    Remove-Item -Path 'C:\Sitecore *rev*' -Recurse -Force;
 
-RUN Import-Module WebAdministration; `
-    Set-ItemProperty -Path 'IIS:\Sites\Default Web Site' -Name 'physicalPath' -Value 'C:\Sitecore\Website'; `
-    Set-ItemProperty -Path 'IIS:\AppPools\DefaultAppPool' -Name 'enable32BitAppOnWin64' -Value 'True'; `
-    Set-Itemproperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name ServerPriorityTimeLimit -Value 0 -Type DWord; `
-    setx /M PATH $($env:PATH + ';C:\Sitecore\Scripts'); `
-    Add-LocalGroupMember -Group 'Administrators' -Member 'IIS AppPool\DefaultAppPool';
+COPY DataFolder.config \Sitecore\Website\App_Config\Include

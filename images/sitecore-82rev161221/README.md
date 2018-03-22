@@ -1,1 +1,4 @@
-Place corresponding Sitecore distribution zip file here.
+Place the following items here.
+
+ * Sitecore distribution zip file
+ * Sitecore lincense.xml file

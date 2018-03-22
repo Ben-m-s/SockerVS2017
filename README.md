@@ -2,16 +2,18 @@
 
 >This is the continuation of [https://github.com/pbering/Socker](https://github.com/pbering/Socker) where the new Docker integration in Visual Studio 2017 is used instead.
 
-Is is now possible to run Sitecore completely in Docker natively, you don't have to mess around with databases, IIS or anything, you don't even have to have SQL Server or IIS installed on your machine.
+It is now possible to run Sitecore completely in Docker natively, you don't have to mess around with databases, IIS or anything, you don't even have to have SQL Server or IIS installed on your machine.
 
 This repository shows how a solution could be wired up for development with the following features:
 
 - Databases is persisted between restarts
-- Serialization and log folders are mounted with volumes.
+- The "Data" folder is mounted with volume supporting persistance for all its content, including logs, serialization, Lucene indexes, packages, ...
+- The "Website" folder is mounted as volume while debugging and stored in the container with the Release configuration.
 
 and also the Visual Studio 2017, out-of-the-box docker features like:
 
 - Remote debugging, auto attaching to running containers with F5
+- Different contaner configurations for Debug and Release
 - Build, re-build, clear builds/stops/starts compose services (containers)
 - **New in Visual Studio 2017 15.5**: By default, Visual Studio will automatically pull, build, and run the necessary container images in the background when you open a project that has Docker support. You can disable this via the Automatically start containers in background setting in Visual Studio.
 
@@ -30,21 +32,22 @@ Unfortunately it has to be **private** repositories due to Sitecore licensing te
 ### Using Sitecore 8.2 rev. 161221
 
 1. Copy **Sitecore 8.2 rev. 161221.zip** into **"/images/sitecore-82rev161221"**
-1. Copy **license.xml** into **"/images/sitecore-82rev161221/Sitecore/Data"**
-1. Build image:
+1. Copy **license.xml** into **"/images/sitecore-82rev161221/"**
+1. Copy database files from **Sitecore 8.2 rev. 161221.zip** into **"/storage/Databases"**
+1. Copy website files from **Sitecore 8.2 rev. 161221.zip** into **"/storage/Website"**
+1. Publish the WebApp project to the local folder **"/storage/Website"**
+1. Build base images by running the folliwing PowerShell script:
 
     ```text
-    docker build -t sitecore:8.2.161221 .\images\sitecore-82rev161221
+    .\Build.ps1
     ```
 
-1. Copy database files from **Sitecore 8.2 rev. 161221.zip** into **"/data/databases"**
 
 ## Daily usage
 
 1. Open solution...
 1. Make sure the "docker-compose" project is your startup project
 1. CTRL+F5 to run or set breakpoint and F5, Visual Studio will open your default browser automatically when the containers are ready
-1. To continuously update changes from your web project output to the running container, you need to start the watcher script (you can get the container id/name from the build output or `docker container ps`): `docker exec CONTAINER powershell watch`
-    >NOTE: Latest Docker tooling in Visual Studio overrides ENTRYPOINT (see [https://github.com/Microsoft/DockerTools/issues/9](https://github.com/Microsoft/DockerTools/issues/9)) so it is not possible to start the watcher script automatically when the container starts anymore.
+1. To continuously update changes from your web project output to the running container, publish the WebApp project to the folder **"/storage/Website"**. Changes will be picked up by Sitecore immediately as if it was a local IIS.
 
 To stop everything again just hit "Build -> Clear".
