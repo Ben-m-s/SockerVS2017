@@ -37,7 +37,7 @@ Unfortunately it has to be **private** repositories due to Sitecore licensing te
 1. Copy the database files (*.mdf and *.ldf) from "**Sitecore 8.2 rev. 161221.zip**" into "C:\Docker\SockerVS2017\\**storage\Databases**“
 1. Copy The "Website" folder files from "**Sitecore 8.2 rev. 161221.zip**" into "C:\Docker\SockerVS2017\\**storage\Website**“
 1. Open VS2017 as Administrator
-1. Open the solution “C:\Docker\SockerVS2017\\**Sitecore82TDS.sln**”
+1. Open the solution “C:\Docker\SockerVS2017\\**Socker.sln**”
 1. Open a PowerShell console as Administrator.
 1. Build base images by running the folliwing PowerShell script:
     ```text
@@ -49,7 +49,7 @@ Unfortunately it has to be **private** repositories due to Sitecore licensing te
 1. Publish the WebApp project to the local folder "C:\Docker\SockerVS2017\\**storage\Website**“
 1. Make sure the project “**docker-compose**” is set as StartUp project
 1. Run the containers with “**Debug**” configuration. The browser will open with Sitecore’s home page.
-1. Copy the container’s IP in the “c:\Windows\System32\drivers\etc\\**hosts**” file with the URL: **sitecore82tds.dev.local**
+1. Copy the container’s IP in the “c:\Windows\System32\drivers\etc\\**hosts**” file with the URL: **socker.dev.local**
 1. With VS2017, edit the properties of the TDS project “**TDSMaster**”.
    1. Select tab “**Build**”
    1. Check the checkbox “**Edit user specific configuration (.user file)**”
