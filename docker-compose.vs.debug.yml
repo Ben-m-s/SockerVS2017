@@ -4,5 +4,7 @@ services:
   webapp:
     build:
       dockerfile: Debug.Dockerfile
+      args:
+        source: obj/Docker/empty
     volumes:
       - .\storage\Website\:C:\Sitecore\Website
