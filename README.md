@@ -31,16 +31,38 @@ Unfortunately it has to be **private** repositories due to Sitecore licensing te
 
 ### Using Sitecore 8.2 rev. 161221
 
-1. Copy **Sitecore 8.2 rev. 161221.zip** into **"/images/sitecore-82rev161221"**
-1. Copy **license.xml** into **"/images/sitecore-82rev161221/"**
-1. Copy database files from **Sitecore 8.2 rev. 161221.zip** into **"/storage/Databases"**
-1. Copy website files from **Sitecore 8.2 rev. 161221.zip** into **"/storage/Website"**
-1. Publish the WebApp project to the local folder **"/storage/Website"**
+1. Clone [this repository](https://github.com/Ben-m-s/SockerVS2017.git) into a folder such as “C:\Docker\SockerVS2017” (next steps will asume this folder has been used):
+1. Copy "**Sitecore 8.2 rev. 161221.zip**" into “C:\Docker\SockerVS2017\\**images\sitecore-82rev161221**“
+1. Copy "**license.xml**" into "C:\Docker\SockerVS2017\\**storage\Data**“
+1. Copy the database files (*.mdf and *.ldf) from "**Sitecore 8.2 rev. 161221.zip**" into "C:\Docker\SockerVS2017\\**storage\Databases**“
+1. Copy The "Website" folder files from "**Sitecore 8.2 rev. 161221.zip**" into "C:\Docker\SockerVS2017\\**storage\Website**“
+1. Open VS2017 as Administrator
+1. Open the solution “C:\Docker\SockerVS2017\\**Sitecore82TDS.sln**”
+1. Open a PowerShell console as Administrator.
 1. Build base images by running the folliwing PowerShell script:
-
     ```text
     .\Build.ps1
     ```
+1. Copy file “C:\Docker\SockerVS2017\src\Website\Properties\PublishProfiles\\**Debug Website.pubxml.example**” as “**Debug Website.pubxml**”
+1. Edit the Publication settings "**Debug Website**" for the project “WebApp”. Set the Target Location to “C:\Docker\SockerVS2017\\**storage\website**”
+1. Build the solution.
+1. Publish the WebApp project to the local folder "C:\Docker\SockerVS2017\\**storage\Website**“
+1. Make sure the project “**docker-compose**” is set as StartUp project
+1. Run the containers with “**Debug**” configuration. The browser will open with Sitecore’s home page.
+1. Copy the container’s IP in the “c:\Windows\System32\drivers\etc\\**hosts**” file with the URL: **sitecore82tds.dev.local**
+1. With VS2017, edit the properties of the TDS project “**TDSMaster**”.
+   1. Select tab “**Build**”
+   1. Check the checkbox “**Edit user specific configuration (.user file)**”
+   1. Set the following values in the text boxes:
+      1. Sitecore Web Url: “http://socker.dev.local”
+      1. Sitecore Deploy Folder: "C:\Docker\SockerVS2017\storage\Website“
+   1. Check the checkbox “**Install Sitecore Connector**”. A guid should appear in the “Sitecore Access Guid” field
+   1. Click the “**Test**” button to confirm the connection works
+   1. Save the project.
+1. Deploy the TDS project “**TDSMaster**”
+1. Browse to “http://socker.dev.local/sitecore/shell”
+1. Login with “admin” and “b”
+1. Browse to “**/sitecore/content/Home**”. Confirm there is a child page deployed by TDS.
 
 
 ## Daily usage
